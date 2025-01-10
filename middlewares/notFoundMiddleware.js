@@ -5,4 +5,4 @@ const notFoundMiddleware = (req, res, next) => {
   });
 };
 
-export default notFoundMiddleware;
+module.exports = notFoundMiddleware;

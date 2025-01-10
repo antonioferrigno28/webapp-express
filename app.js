@@ -1,14 +1,13 @@
-import express from "express";
+const express = require("express");
 
 const app = express();
 const port = 3000;
-import errorMiddleware from "./middlewares/errorMiddleware.js";
-import notFoundMiddleware from "./middlewares/notFoundMiddleware.js";
-
+const errorMiddleware = require("./middlewares/errorMiddleware.js");
+const notFoundMiddleware = require("./middlewares/notFoundMiddleware.js");
 app.use(express.json());
 app.use(express.static("public"));
 
-import { router as moviesRouter } from "./routers/moviesRouter.js";
+const moviesRouter = require("./routers/moviesRouter");
 
 app.use("/api/movies", moviesRouter);
 
