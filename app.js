@@ -1,7 +1,15 @@
 const express = require("express");
 
 const app = express();
+const cors = require("cors");
+const { APP_HOST, APP_PORT, APP_FRONTEND_URL } = process.env;
+const corsOptions = {
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200,
+};
+
 const port = 3000;
+app.use(cors(corsOptions));
 const errorMiddleware = require("./middlewares/errorMiddleware.js");
 const notFoundMiddleware = require("./middlewares/notFoundMiddleware.js");
 app.use(express.json());
