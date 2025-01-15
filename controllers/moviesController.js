@@ -68,4 +68,27 @@ function storeReviewByMovieId(req, res) {
   });
 }
 
-module.exports = { index, show, storeReviewByMovieId };
+function getReviewsByMovieId(req, res) {
+  const movieId = req.params.id;
+  const sql = `
+  SELECT id, name, vote, text
+  FROM reviews
+  WHERE movie_id =?
+  ORDER BY created_at ASC
+  `;
+  connection.query(sql, [movieId], (err, reviews) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        status: "ko",
+        message: "Database query failed",
+      });
+    }
+    res.json({
+      status: "ok",
+      reviews,
+    });
+  });
+}
+
+module.exports = { index, show, storeReviewByMovieId, getReviewsByMovieId };
