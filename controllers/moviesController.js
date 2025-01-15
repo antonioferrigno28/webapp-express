@@ -43,4 +43,29 @@ function show(req, res) {
     });
   });
 }
-module.exports = { index, show };
+
+function storeReviewByMovieId(req, res) {
+  const movieId = req.params.id;
+  const { name, text, vote } = req.body;
+  const sql = `
+  INSERT INTO reviews (name, text, vote, movie_id)
+  VALUES (?,?,?,?)
+  `;
+  connection.query(sql, [name, text, vote, movieId], (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        status: "ko",
+        message: "Database query failed",
+      });
+    }
+
+    reviews = results;
+    res.json({
+      status: "ok",
+      message: "review added",
+    });
+  });
+}
+
+module.exports = { index, show, storeReviewByMovieId };
